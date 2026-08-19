@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TodoApp</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="page">
+        <header class="site-header">
+            <a class="brand" asp-controller="Todo" asp-action="Index">
+                <span class="brand-mark">✓</span> TodoApp
+            </a>
+        </header>
+
+        <main class="site-main">
+            @RenderBody()
+        </main>
+
+        <footer class="site-footer">
+            <span>&copy; @DateTime.Now.Year TodoApp</span>
+            <span class="dot">·</span>
+            <span>FSAC — DevOps &amp; Intégration Continue</span>
+        </footer>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

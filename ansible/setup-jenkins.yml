@@ -1,0 +1,48 @@
+- name: Configurer la VM Jenkins
+  hosts: jenkins
+  become: yes
+  tasks:
+    - name: Mettre à jour les paquets
+      apt:
+        update_cache: yes
+
+    - name: Installer les prérequis (Docker, Git, Java)
+      apt:
+        name:
+          - docker.io
+          - git
+          - openjdk-17-jre-headless
+          - ca-certificates
+          - gnupg
+        state: present
+
+    - name: Ajouter la clé GPG du dépôt Jenkins
+      apt_key:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        state: present
+
+    - name: Ajouter le dépôt Jenkins
+      apt_repository:
+        repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+        state: present
+
+    - name: Installer Jenkins
+      apt:
+        name: jenkins
+        state: present
+        update_cache: yes
+
+    - name: Démarrer Docker et Jenkins
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - docker
+        - jenkins
+
+    - name: Ajouter l'utilisateur jenkins au groupe docker
+      user:
+        name: jenkins
+        groups: docker
+        append: yes

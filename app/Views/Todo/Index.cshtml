@@ -1,0 +1,48 @@
+@model List<TodoApp.Models.TodoItem>
+@{
+    ViewData["Title"] = "TODO List";
+    var done = Model.Count(t => t.Done);
+    var total = Model.Count;
+}
+
+<div class="todo-card">
+    <div class="todo-card-head">
+        <h1>Mes tâches</h1>
+        @if (total > 0)
+        {
+            <span class="counter">@done / @total terminées</span>
+        }
+    </div>
+
+    <form method="post" asp-controller="Todo" asp-action="Add" class="add-form">
+        <input name="title" class="add-input" placeholder="Ajouter une nouvelle tâche…" autocomplete="off" required />
+        <button type="submit" class="add-btn" aria-label="Ajouter">+</button>
+    </form>
+
+    @if (total == 0)
+    {
+        <div class="empty-state">
+            <p>Aucune tâche pour l'instant.</p>
+            <p class="hint">Ajoute ta première tâche ci-dessus 👆</p>
+        </div>
+    }
+    else
+    {
+        <ul class="todo-list">
+            @foreach (var task in Model)
+            {
+                <li class="todo-item @(task.Done ? "is-done" : "")">
+                    <form method="post" asp-controller="Todo" asp-action="Toggle" asp-route-id="@task.Id" class="inline-form">
+                        <button type="submit" class="check-btn" aria-label="Basculer">
+                            <span class="check-mark">✓</span>
+                        </button>
+                    </form>
+                    <span class="todo-title">@task.Title</span>
+                    <form method="post" asp-controller="Todo" asp-action="Delete" asp-route-id="@task.Id" class="inline-form">
+                        <button type="submit" class="delete-btn" aria-label="Supprimer">✕</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
+</div>

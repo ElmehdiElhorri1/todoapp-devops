@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+tests/
+terraform/
+ansible/
+k8s/
+docs/
+*.md
+.git/

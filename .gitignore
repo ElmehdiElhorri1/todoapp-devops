@@ -1,0 +1,18 @@
+bin/
+obj/
+*.user
+.vs/
+
+# Course material (not part of the project deliverable)
+PDF/
+*.pdf
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform.lock.hcl
+terraform/*.tfvars
+
+# Ansible
+ansible/*.retry
