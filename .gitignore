@@ -10,6 +10,7 @@ PDF/
 # Kept locally only, not pushed to the remote
 README.md
 CLAUDE.md
+Screen/
 
 # Terraform
 terraform/.terraform/

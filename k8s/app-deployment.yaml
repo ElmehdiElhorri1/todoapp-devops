@@ -18,13 +18,13 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: ConnectionStrings__Default
-              value: "Server=mssql,1433;Database=todoapp;User Id=sa;Password=$(MSSQL_SA_PASSWORD);TrustServerCertificate=true"
             - name: MSSQL_SA_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mssql-secret
                   key: MSSQL_SA_PASSWORD
+            - name: ConnectionStrings__Default
+              value: "Server=mssql,1433;Database=todoapp;User Id=sa;Password=$(MSSQL_SA_PASSWORD);TrustServerCertificate=true"
           readinessProbe:
             httpGet:
               path: /healthz
